@@ -1,7 +1,7 @@
 # CMPS 2200  Recitation 04
 
-**Name (Team Member 1):**_________________________  
-**Name (Team Member 2):**_________________________
+**Name (Team Member 1):** Zach Goodman 
+**Name (Team Member 2):** Kevin Skelly
 
 
 In this lab you will practice using the `map` and `reduce` functions. These functions are commonly used together in a `map-reduce` framework, used by Google and others to parallelize and scale common computations.
@@ -36,7 +36,9 @@ To use this function to count words, you'll need to implement your own `map_f` a
 
 4. Assume that a word `w` appears `n` times. What is the **work** and **span** of `word_count_reduce` for this word, assuming a parallel implementation of the `reduce` function?
 
-**Enter answer here**
+**The work would be W(n) = 2W(n/2) + 1 + 1 which is O(n). This is because with each recursive call, the list gets split into two. Then the 2 additional "+1's" are from the additional step in reduce() and the return call in word_count_reduce**
+
+**The span would be S(n) = S(n/2) which is O(log n). This is because the span is the depth of the tree and since this function splits the list in half recursively, it is a binary tree. The depth of a binary tree is log n, where n is the amount of elements. Therefore the span is S(n/2) which is O(log n).**
 
 
 5. Why are we going through all this trouble? Couldn't I just use this function to count words?
@@ -52,7 +54,7 @@ for doc in docs:
 
 What is the problem that prevents us from easily parallelizing this solution?
 
-**Enter answer here**
+**The problem with this is that there could be multiple threads or processes trying to access or update the value of the variable "counts". With this, there could be race conditions where the "counts" variable is having issues with its summation. Instead, implementing this function recursively prevents this issue.**
 
 
 ## Part 2: Sentiment analysis
